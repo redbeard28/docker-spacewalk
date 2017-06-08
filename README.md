@@ -128,13 +128,3 @@ http {
 ```
 root@redbeard28:~# service nginx restart 
 ```
-
-### Web UI ###
-Create Spacewalk Administrator
-![Create Spacewalk Administrator][1]
-
-Spacewalk Overview
-![Spacewalk Overview][2]
-
-[1]: https://github.com/redbeard28/docker-spacewalk/img/01_create_spacewalk_administrator.png
-[2]: https://github.com/redbeard28/docker-spacewalk/img/02_spacewalk_overview.png
