@@ -16,14 +16,22 @@ MAINTAINER Jérémie CUADRADO <redbeard28>
 WORKDIR /opt
 
 # 3. Add the epel, spacewalk, jpackage repository
+ENV http_proxy "http://X.X.X.X:3128"
+ENV https_proxy "http://X.X.X.X:3128"
 ADD conf/jpackage.repo /etc/yum.repos.d/jpackage.repo
-RUN yum install wget -y
-RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm \
- && rpm -Uvh http://yum.spacewalkproject.org/latest/RHEL/7/x86_64/spacewalk-reports-2.6.3-1.el7.noarch.rpm
+RUN yum clean all
+RUN yum install wget net-tools curl -y
+RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
+RUN awk '!/mirrorlist/' /etc/yum.repos.d/epel.repo > /tmp/toto && mv -f /tmp/toto /etc/yum.repos.d/epel.repo
+RUN awk '!/mirrorlist/' /etc/yum.repos.d/CentOS-Base.repo > /tmp/titi && mv -f /tmp/titi /etc/yum.repos.d/CentOS-Base.repo
+RUN sed -i "s/\#baseurl/baseurl/g" /etc/yum.repos.d/epel.repo
+RUN sed -i "s/\#baseurl/baseurl/g" /etc/yum.repos.d/CentOS-Base.repo
+RUN rpm -Uvh http://yum.spacewalkproject.org/2.3/RHEL/7/x86_64/spacewalk-repo-2.3-4.el7.noarch.rpm
+RUN yum update -y
 
 # 4. Installation a spacewalk
-ADD conf/answer.txt	/opt/answer.txt
-ADD conf/spacewalk.sh	/opt/spacewalk.sh
+ADD conf/answer.txt     /opt/answer.txt
+ADD conf/spacewalk.sh   /opt/spacewalk.sh
 RUN chmod a+x /opt/spacewalk.sh
 RUN yum install -y spacewalk-setup-postgresql spacewalk-postgresql
 
