@@ -1,15 +1,13 @@
 Dockerfile - Spacewalk
 ======================
-### Run ###
-```
-root@redbeard28:~# docker run --privileged=true -d --name="spacewalk" redbeard28/spacewalk
-```
-or
+
+### Change answer.txt file ###
+Please, change conf/answer.txt file to your needs.
 
 ### Build ###
 ```
-root@redbeard28:~# git clone https://github.com/redbeard28/docker-spacewalk /opt/docker-spacewalk
-root@redbeard28:~# docker build --rm -t spacewalk /opt/docker-spacewalk
+root@redbeard28:~# git clone https://github.com/redbeard28/docker-spacewalk /opt/dredbeard28-spacewalk
+root@redbeard28:~# docker build --rm -t redbeard28/spacewalk /opt/redbeard28
 ```
 
 ### Run ###
