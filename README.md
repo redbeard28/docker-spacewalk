@@ -6,13 +6,13 @@ Please, change conf/answer.txt file to your needs.
 
 ### Build ###
 ```
-root@redbeard28:~# git clone https://github.com/redbeard28/docker-spacewalk /opt/dredbeard28-spacewalk
+root@redbeard28:~# git clone https://github.com/redbeard28/docker-spacewalk.git /opt/dredbeard28-spacewalk
 root@redbeard28:~# docker build --rm -t redbeard28/spacewalk /opt/redbeard28
 ```
 
 ### Run ###
 ```
-root@redbeard28:~# docker run --privileged=true -d --name="spacewalk" spacewalk
+root@redbeard28:~# docker run -p 443:443 -p 80:80 -p 5222:5222 -p 68:68 -p 69:69 --privileged=true -d --name="space6" egonzalez90/spacewalk
 ```
 ```
 root@redbeard28:~# docker inspect -f '{{ .NetworkSettings.IPAddress }}' spacewalk
