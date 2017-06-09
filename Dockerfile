@@ -21,6 +21,7 @@ ENV https_proxy "http://X.X.X.X:3128"
 
 # 3. Add the epel, spacewalk, jpackage repository
 ADD conf/jpackage.repo /etc/yum.repos.d/jpackage.repo
+
 RUN yum clean all
 RUN yum install -y http://yum.spacewalkproject.org/2.5/RHEL/7/x86_64/spacewalk-repo-2.5-3.el7.noarch.rpm \
         epel-release && \
@@ -37,7 +38,7 @@ RUN yum -y install \
         supervisor  \
         yum clean all
 
-COPY answerfile.txt /tmp/answerfile.txt
+COPY conf/answer.txt /tmp/answer.txt
 
 EXPOSE 80 443 5222 68 69
 
@@ -52,7 +53,7 @@ RUN /usr/bin/pg_ctl start -D /var/lib/pgsql/data/  -w -t 300 && \
 USER root
 
 RUN su -c "/usr/bin/pg_ctl start -D /var/lib/pgsql/data/  -w -t 300" postgres && \
-    su -c "spacewalk-setup --answer-file=/tmp/answerfile.txt --skip-db-diskspace-check --skip-db-install" root ; exit 0
+    su -c "spacewalk-setup --answer-file=/tmp/answer.txt --skip-db-diskspace-check --skip-db-install" root ; exit 0
 
 ADD supervisord.conf /etc/supervisord.d/supervisord.conf
 
