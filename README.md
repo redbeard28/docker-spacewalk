@@ -173,3 +173,11 @@ Restart Docker:
 ```bash
 $ sudo systemctl restart docker
 ```
+
+# Run docker **container** behind a proxy !
+Put an ENV in the Dockerfile
+
+```bash
+ENV http_proxy "http://X.X.X.X:3128"
+ENV https_proxy "http://X.X.X.X:3128"
+```
