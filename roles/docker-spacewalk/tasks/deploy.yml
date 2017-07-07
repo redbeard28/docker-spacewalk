@@ -2,11 +2,12 @@
 # For docker 1.7.1. Don't use it for docker-py version 1.19.1
 - name: Deploy {{ container_name }}
   become: yes
-  shell: shell docker run --privileged=true -d --name="spacewalk" \
-  -p {{ binding_port80 }}:80 -p {{ binding_port443 }}:443 -p {{ binding_port5222 }}:5222 \
-  -p {{ binding_port68 }}:68 -p {{ binding_port69}}:69 -v {{ dir_docker }}/var/satellite:/var/satellite \
-  -v {{ dir_docker }}/var/log:/var/log -v {{ dir_docker }}/var/lib/pgsql:/var/lib/pgsql \
-  -v {{ dir_docker }}/var/www/html/pub:/var/www/html/pub {{ docker_image }}
+  shell: >
+    docker run --privileged=true -d --name="spacewalk" \
+   -p {{ binding_port80 }}:80 -p {{ binding_port443 }}:443 -p {{ binding_port5222 }}:5222 \
+   -p {{ binding_port68 }}:68 -p {{ binding_port69}}:69 -v {{ dir_docker }}/var/satellite:/var/satellite \
+   -v {{ dir_docker }}/var/log:/var/log -v {{ dir_docker }}/var/lib/pgsql:/var/lib/pgsql \
+   -v {{ dir_docker }}/var/www/html/pub:/var/www/html/pub {{ docker_image }}
   register: deploy_result
 
 - debug: msg="{{ deploy_result.stdout }}"
