@@ -28,13 +28,6 @@
     cd {{ dir_docker }} && docker build --build-arg HTTP_PROXY={{ proxy_env.http_proxy }} \
     --build-arg HTTPS_PROXY={{ proxy_env.https_proxy }} --rm -t {{ docker_image }} {{ dir_docker }}
 
-- name: Log into docker hub
-  docker_login:
-    username: "{{ vault_registry_user }}"
-    password: "{{ vault_registry_passwd }}"
-    email: "{{ vault_registry_email }}"
-    reauthorize: yes
-    
 # Last docker verison and docker-py version    
 #- name: Build {{ container_name }} Image
 #  docker_image:
