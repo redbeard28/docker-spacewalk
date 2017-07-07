@@ -1,7 +1,7 @@
 ---
 - name: Ensure {{ container_name }} docker directory present
   file:
-    path: "{{ dir_docker }}"
+    path: {{ dir_docker }}
     state: directory
     owner: root
     group: root
@@ -14,10 +14,10 @@
   template: src=answer.j2 dest={{ dir_docker }}/answer.txt
 
 - name: Copy spacewalk script to {{ dir_docker }}
-  template: spacewalk.sh.j2 dest={{ dir_docker }}/spacewalk.sh
+  template: src=spacewalk.sh.j2 dest={{ dir_docker }}/spacewalk.sh
 
 - name: Copy supervisord.conf to {{ dir_docker }}
-  template: supervisord.conf.j2 dest={{ dir_docker }}/supervisord.conf
+  template: src=supervisord.conf.j2 dest={{ dir_docker }}/supervisord.conf
 
 # Docker version 1.7.1 - docker-py =< 1.7.1
 - name: Build {{ container_name }} Image
