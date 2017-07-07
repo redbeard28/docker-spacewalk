@@ -45,4 +45,4 @@
 
 - name: Push {{ container_name }} images to registry
   shell: >
-    docker tag {{ container_name }}:{{ docker_image_version }} {{ docker_image }} && docker push {{ docker_image }}
+    docker tag {{ docker_image }} {{ container_name }}:{{ docker_image_version }} && docker push {{ docker_image }}
