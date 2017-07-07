@@ -7,6 +7,9 @@ site_author: Jeremie CUADRADO aka redbeard28
 theme: readthedocs
 pages:
   - [ 'index.md', 'Home' ]
-  - [ 'utilisation.md', 'Howto', 'Install commons']
+  - [ 'vault.md', 'Howto', 'Inside Vault file']
+  - [ 'vars.md', 'Howto', 'Inside Vars']
+  - [ 'defaults.md', 'Howto', 'Inside Defaults file']
+  - [ 'dockerfile.md', 'Howto', 'Inside Dockerfile file']
   - [ 'license.md', 'About', 'License' ]
   - [ 'about.md', 'About', 'About' ]
