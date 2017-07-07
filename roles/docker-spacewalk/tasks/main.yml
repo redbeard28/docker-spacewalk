@@ -1,7 +1,6 @@
 ---
 - include: build.yml
   tags: spacewalk-build
-  when: internal_registry = 'false' and build == 'True'
 
 - include: deploy.yml
   tags: spacewalk-deploy
