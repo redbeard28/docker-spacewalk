@@ -14,21 +14,11 @@
   template: src=answer.j2 dest={{ dir_docker }}/answer.txt
 
 - name: Copy spacewalk script to {{ dir_docker }}
-  copy:
-    src: spacewalk.sh
-    dest: "{{ dir_docker }}"/spacewalk.sh
-    owner: root
-    group: root
-    mode: 0655
+  template: spacewalk.sh dest={{ dir_docker }}/spacewalk.sh
 
-- name: Copy supervisord.conf script to {{ dir_docker }}
-  copy:
-    src: supervisord.conf
-    dest: "{{ dir_docker }}"/spacewalk.sh
-    owner: root
-    group: root
-    mode: 0655
-  
+- name: Copy supervisord.conf to {{ dir_docker }}
+  template: supervisord.conf dest={{ dir_docker }}/supervisord.conf
+
 # Docker version 1.7.1 - docker-py =< 1.7.1
 - name: Build {{ container_name }} Image
   shell: >
