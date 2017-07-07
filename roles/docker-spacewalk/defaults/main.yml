@@ -17,7 +17,7 @@ binding_port443: 443
 binding_port5222: 5222
 binding_port68: 68
 binding_port69: 69
-docker_image: {{ registry_user }}/{{ container_name }}
+docker_image: '{{ registry_user }}/{{ container_name }}'
 docker_image_version: "centos6"
 timezone: "Europe/Paris"
 internal_registry: 'false'
