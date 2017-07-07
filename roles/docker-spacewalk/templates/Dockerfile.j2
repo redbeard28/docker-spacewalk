@@ -5,22 +5,20 @@
 
 
 # 1. Base images
-FROM     centos:6
+FROM     centos:"{{ centos_real_version }}"
 MAINTAINER Jeremie CUADRADO <redbeard28>
 
 # 2. Set the environment variable
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
+ENV $HTTP_PROXY
+ENV $HTTPS_PROXY
 WORKDIR "{{ workdir_path }}'
-ENV SPACEWALKVERSION="{{ sp_version }}"
-ENV VERSION="{{ sp_repo_version }}"
-ENV REALSERVER="{{ centos_real_version }}"
-ENV BASEARCH="{{ centos_arch }}"
 
 # 3. Add the epel, spacewalk, jpackage repository, supervisord
 ADD jpackage.repo /etc/yum.repos.d/jpackage.repo
 RUN yum install -y epel-release \
- && yum install -y http://spacewalk.redhat.com/yum/$SPACEWALKVERSION/RHEL/6/$BASEARCH/spacewalk-repo-$VERSION.el$REALSERVER.noarch.rpm \
+ && yum install -y http://spacewalk.redhat.com/yum/"{{ sp_version }}"/RHEL/"{{ centos_real_version }}"/"{{ centos_arch }}"/spacewalk-repo-"{{ sp_repo_version }}".el"{{ centos_real_version }}".noarch.rpm \
  && yum check-update ; yum upgrade -y \
  && yum install -y spacewalk-setup-postgresql spacewalk-postgresql tomcat-native python-setuptools \
  && yum clean all \
