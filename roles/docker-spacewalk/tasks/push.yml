@@ -1,0 +1,11 @@
+# Push to docker hub if you need
+- name: Log into docker hub
+  docker_login:
+    username: "{{ vault_registry_user }}"
+    password: "{{ vault_registry_passwd }}"
+    email: "{{ vault_registry_email }}"
+    reauthorize: yes
+
+- name: Push {{ container_name }} images to registry
+  shell: >
+    docker tag {{ docker_image }} {{ container_name }}:{{ docker_image_version }} && docker push {{ docker_image }}

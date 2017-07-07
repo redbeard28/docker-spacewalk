@@ -1,0 +1,12 @@
+---
+- include: build.yml
+  tags: spacewalk-build
+
+- include: push.yml
+  tags: spacewalk_push
+  when: pushit == 'True'
+  # Yes I want to be sure...
+  
+- include: deploy.yml
+  tags: spacewalk-deploy
+

@@ -1,0 +1,12 @@
+site_name: Common files for the docs
+site_url: http://www.redbeard-consulting.fr
+repo_url: https://github.com/redbeard28/docs_commons
+site_description: Build documentation on github.com
+site_author: Jeremie CUADRADO aka redbeard28
+
+theme: readthedocs
+pages:
+  - [ 'index.md', 'Home' ]
+  - [ 'utilisation.md', 'Howto', 'Install commons']
+  - [ 'license.md', 'About', 'License' ]
+  - [ 'about.md', 'About', 'About' ]

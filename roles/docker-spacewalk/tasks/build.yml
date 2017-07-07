@@ -1,0 +1,39 @@
+---
+- name: Ensure {{ container_name }} docker directory present
+  file:
+    path: "{{ dir_docker }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+    
+- name: Generate Dockerfile to build {{ container_name }} image
+  template: src=Dockerfile.j2 dest={{ dir_docker }}/Dockerfile
+
+- name: Generate answer.txt to build {{ container_name }} image
+  template: src=answer.j2 dest={{ dir_docker }}/answer.txt
+
+- name: Copy spacewalk script to {{ dir_docker }}
+  template: src=spacewalk.sh.j2 dest={{ dir_docker }}/spacewalk.sh
+
+- name: Copy repo jpackage script to {{ dir_docker }}
+  template: src=jpackage.repo.j2 dest={{ dir_docker }}/jpackage.repo
+  
+- name: Copy supervisord.conf to {{ dir_docker }}
+  template: src=supervisord.conf.j2 dest={{ dir_docker }}/supervisord.conf
+
+# Docker version 1.7.1 - docker-py =< 1.7.1
+- name: Build {{ container_name }} Image
+  shell: >
+    cd {{ dir_docker }} && docker build --build-arg HTTP_PROXY={{ proxy_env.http_proxy }} \
+    --build-arg HTTPS_PROXY={{ proxy_env.https_proxy }} --rm -t {{ docker_image }} {{ dir_docker }}
+
+# Last docker verison and docker-py version    
+#- name: Build {{ container_name }} Image
+#  docker_image:
+#    path: "{{ dir_docker }}"
+#    name: "{{ container_name }}"
+#    tag: "{{ docker_image_version }}"
+#    state: present
+
+

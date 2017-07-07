@@ -1,0 +1,25 @@
+---
+sp_repo_version: 2.6-0
+centos_real_version: 6
+centos_arch: x86_64
+sp_version: 2.6
+workdir_path: /opt
+meld3_version: 0.6.10
+
+### Docker ###
+container_name: spacewalk
+docker_image_version: 'centos6'
+build: 'false'
+docker_new_deploy: 'False'
+dir_docker: /appl/docker/{{ container_name }}
+binding_port80: 80
+binding_port443: 443
+binding_port5222: 5222
+binding_port68: 68
+binding_port69: 69
+docker_image: '"{{ vault_registry_user }}"/{{ container_name }}'
+docker_image_version: "centos6"
+timezone: "Europe/Paris"
+internal_registry: 'false'
+
+spacewalk_admin_email: "{{ vault_spacewalk_email }}"

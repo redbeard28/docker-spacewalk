@@ -1,0 +1,11 @@
+proxy_env:
+  http_proxy: "{{ vault_proxy_url }}"
+  https_proxy: "{{ vault_proxy_url }}"
+  host: "{{ vault_proxy_ip }}"
+  port: "{{ vault_proxy_port }}"
+  no_proxy: "{{ vault_no_proxy }}"
+
+pushit: 'false'
+
+
+

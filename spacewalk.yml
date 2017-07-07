@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  sudo: yes
+  vars_files:
+    - secrets/{{site}}-secrets.yml
+  roles:
+    - docker-spacewalk
