@@ -8,5 +8,8 @@ theme: readthedocs
 pages:
   - [ 'index.md', 'Home' ]
   - [ 'utilisation.md', 'Howto', 'Install commons']
+  - [ 'defaults.md', 'Howto', 'Inside Defaults ansible file']
+  - [ 'vars.md', 'Howto', 'Inside Vars ansible file']
+  - [ 'vault.md', 'Howto', 'Inside Vault ansible file']
   - [ 'license.md', 'About', 'License' ]
   - [ 'about.md', 'About', 'About' ]
