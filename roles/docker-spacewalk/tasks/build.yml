@@ -1,7 +1,7 @@
 ---
 - name: Ensure {{ container_name }} docker directory present
   file:
-    path: {{ dir_docker }}
+    path: "{{ dir_docker }}"
     state: directory
     owner: root
     group: root
