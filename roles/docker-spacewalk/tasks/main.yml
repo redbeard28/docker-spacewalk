@@ -1,8 +1,4 @@
 ---
-- include: build-local.yml
-  tags: spacewalk-build
-  when: internal_registry = 'True' and build == 'True'
-  
 - include: build.yml
   tags: spacewalk-build
   when: internal_registry = 'false' and build == 'True'
