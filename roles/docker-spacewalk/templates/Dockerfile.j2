@@ -1,6 +1,7 @@
 #
 # Dockerfile - Spacewalk
 #
+# {{ ansible_managed }}
 
 
 # 1. Base images
@@ -17,7 +18,7 @@ ENV REALSERVER="{{ centos_real_version }}"
 ENV BASEARCH="{{ centos_arch }}"
 
 # 3. Add the epel, spacewalk, jpackage repository, supervisord
-ADD conf/jpackage.repo /etc/yum.repos.d/jpackage.repo
+ADD jpackage.repo /etc/yum.repos.d/jpackage.repo
 RUN yum install -y epel-release \
  && yum install -y http://spacewalk.redhat.com/yum/$SPACEWALKVERSION/RHEL/6/$BASEARCH/spacewalk-repo-$VERSION.el$REALSERVER.noarch.rpm \
  && yum check-update ; yum upgrade -y \
