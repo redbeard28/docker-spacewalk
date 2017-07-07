@@ -1,7 +1,7 @@
 ---
 - name: Ensure {{ container_name }} docker directory present
   file:
-    path: {{ dir_docker }}
+    path: "{{ dir_docker }}"
     state: directory
     owner: root
     group: root
@@ -12,11 +12,28 @@
 
 - name: Generate answer.txt to build {{ container_name }} image
   template: src=answer.j2 dest={{ dir_docker }}/answer.txt
+
+- name: Copy spacewalk script to {{ dir_docker }}
+  copy:
+    src: spacewalk.sh
+    dest: "{{ dir_docker }}"/spacewalk.sh
+    owner: root
+    group: root
+    mode: 0655
+
+- name: Copy supervisord.conf script to {{ dir_docker }}
+  copy:
+    src: supervisord.conf
+    dest: "{{ dir_docker }}"/spacewalk.sh
+    owner: root
+    group: root
+    mode: 0655
   
 # Docker version 1.7.1 - docker-py =< 1.7.1
 - name: Build {{ container_name }} Image
   shell: >
-    cd {{ dir_docker }} && docker build --rm -t {{ container_name }}
+    cd {{ dir_docker }} && docker build --build-args=HTTP_PROXY={{ proxy_env.http_proxy }} \
+    --build-args=HTTPS_PROXY={{ proxy_env.https_proxy }} --rm -t {{ docker_image }} {{ dir_docker }}
 
 - name: Log into docker hub
   docker_login:

@@ -4,4 +4,4 @@
   vars_files:
     - secrets/{{site}}-secrets.yml
   roles:
-    - spacewalk
+    - docker-spacewalk
