@@ -43,6 +43,4 @@
 #    tag: "{{ docker_image_version }}"
 #    state: present
 
-- name: Push {{ container_name }} images to registry
-  shell: >
-    docker tag {{ docker_image }} {{ container_name }}:{{ docker_image_version }} && docker push {{ docker_image }}
+

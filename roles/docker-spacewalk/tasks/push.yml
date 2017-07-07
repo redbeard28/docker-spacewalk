@@ -1,0 +1,4 @@
+# Push to docker hub if you need
+- name: Push {{ container_name }} images to registry
+  shell: >
+    docker tag {{ docker_image }} {{ container_name }}:{{ docker_image_version }} && docker push {{ docker_image }}
