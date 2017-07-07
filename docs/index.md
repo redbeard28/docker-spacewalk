@@ -1,17 +1,24 @@
 <h1>
-  <span>Common files for the docs</span>
+  <span>docker-spacewalk</span>
 </h1>
 
 Object
 ------
-The objective is to set up a repo github for the bases of my documentation.
+The objective is to set up a spacewalk server in a docker container.
 
 Context
 -------
-When you create or develop a role or infrastructure as code, you must for yourself and others set up documentation to describe your project. 
+We play the build of the container with ansible.
 
 
-Creating files and directories 
+What I have to modify 
 ====================================
-### Creating **docs** folder
-You must create a **docs** directory at the root of your repository. It will contain __*.md__ files.
+
+## Vault file.
+See vault files section.
+
+## Vars
+See ansible var to modify.
+
+## Defaults
+See ansible defaults to modify.
