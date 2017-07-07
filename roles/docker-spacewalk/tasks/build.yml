@@ -22,8 +22,8 @@
 # Docker version 1.7.1 - docker-py =< 1.7.1
 - name: Build {{ container_name }} Image
   shell: >
-    cd {{ dir_docker }} && docker build --build-args=HTTP_PROXY={{ proxy_env.http_proxy }} \
-    --build-args=HTTPS_PROXY={{ proxy_env.https_proxy }} --rm -t {{ docker_image }} {{ dir_docker }}
+    cd {{ dir_docker }} && docker build --build-arg HTTP_PROXY={{ proxy_env.http_proxy }} \
+    --build-arg HTTPS_PROXY={{ proxy_env.https_proxy }} --rm -t {{ docker_image }} {{ dir_docker }}
 
 - name: Log into docker hub
   docker_login:
