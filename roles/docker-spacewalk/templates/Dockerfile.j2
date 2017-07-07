@@ -13,16 +13,16 @@ ARG HTTP_PROXY=
 ARG HTTPS_PROXY=
 ENV http_proxy ${HTTP_PROXY}
 ENV https_proxy ${HTTPS_PROXY}
-WORKDIR "{{ workdir_path }}'
+WORKDIR {{ workdir_path }}
 
 # 3. Add the epel, spacewalk, jpackage repository, supervisord
 ADD jpackage.repo /etc/yum.repos.d/jpackage.repo
 RUN yum install -y epel-release \
- && yum install -y http://spacewalk.redhat.com/yum/"{{ sp_version }}"/RHEL/"{{ centos_real_version }}"/"{{ centos_arch }}"/spacewalk-repo-"{{ sp_repo_version }}".el"{{ centos_real_version }}".noarch.rpm \
+ && yum install -y http://spacewalk.redhat.com/yum/{{ sp_version }}/RHEL/{{ centos_real_version }}/{{ centos_arch }}/spacewalk-repo-{{ sp_repo_version }}.el{{ centos_real_version }}.noarch.rpm \
  && yum check-update ; yum upgrade -y \
  && yum install -y spacewalk-setup-postgresql spacewalk-postgresql tomcat-native python-setuptools \
  && yum clean all \
- && easy_install pip && pip install supervisor && pip install --upgrade meld3=="{{ meld3_version }}" && mkdir /etc/supervisord.d \
+ && easy_install pip && pip install supervisor && pip install --upgrade meld3=={{ meld3_version }} && mkdir /etc/supervisord.d \
  && rm -rf /root/.cache
 
 
