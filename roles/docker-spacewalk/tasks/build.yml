@@ -1,0 +1,37 @@
+---
+- name: Ensure {{ container_name }} docker directory present
+  file:
+    path: {{ dir_docker }}
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+    
+- name: Generate Dockerfile to build {{ container_name }} image
+  template: src=Dockerfile.j2 dest={{ dir_docker }}/Dockerfile
+
+- name: Generate answer.txt to build {{ container_name }} image
+  template: src=answer.j2 dest={{ dir_docker }}/answer.txt
+  
+# Docker version 1.7.1 - docker-py =< 1.7.1
+- name: Build {{ container_name }} Image
+  shell: >
+    cd {{ dir_docker }} && docker build --rm -t {{ container_name }}
+
+- name: Log into docker hub
+  docker_login:
+    username: "{{ vault_registry_user }}"
+    password: "{{ vault_registry_passwd }}"
+    reauthorize: yes
+    
+# Last docker verison and docker-py version    
+#- name: Build {{ container_name }} Image
+#  docker_image:
+#    path: "{{ dir_docker }}"
+#    name: "{{ container_name }}"
+#    tag: "{{ docker_image_version }}"
+#    state: present
+
+- name: Push {{ container_name }} images to registry
+  shell: >
+    docker tag {{ docker_image }} && docker push {{ docker_image }}

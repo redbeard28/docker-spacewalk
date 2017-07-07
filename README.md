@@ -7,13 +7,13 @@ Here you can chose between two methodes:
  2. Use the Ansible role in folder roles
 
 # Methode 1 - Manualy Build
-# Build
+## Build
 ```
 root@redbeard28:~# git clone https://github.com/redbeard28/docker-spacewalk.git /opt/dredbeard28-spacewalk
 root@redbeard28:~# docker build --rm -t redbeard28/spacewalk .
 ```
 
-# Run
+## Run
 ```
 root@redbeard28:~# docker run --privileged=true -d --name="spacewalk" -p 80:80 \
   -p 443:443 -p 5222:5222 -p 68:68 -p 69:69 -v /opt/container/spacewalk/satellite:/var/satellite \
@@ -26,7 +26,7 @@ root@redbeard28:~# docker inspect -f '{{ .NetworkSettings.IPAddress }}' spacewal
 ```
 
 
-## Run docker behind a proxy !
+### Run docker behind a proxy !
 Source documentation from docker website...
 
 First, create a systemd drop-in directory for the docker service:
@@ -69,7 +69,7 @@ Restart Docker:
 $ sudo systemctl restart docker
 ```
 
-## Run docker **container** behind a proxy !
+### Run docker **container** behind a proxy !
 Put an ENV in the Dockerfile
 
 ```bash
@@ -82,6 +82,14 @@ In my case I prefert to user variable
 docker  build --build-arg HTTP_PROXY="http://X.X.X.X:8080" -build-arg HTTPS_PROXY=http://X.X.X.X:8080 --rm -t spacewalk .
 ```
 
-## Original credits
+## Methode 2: From Ansible role
+
+Run this cmd:
+```bash
+ansible-playbook -i "localhost," -c local spacewalk.yml -e site=jcu # CHANGE IT !
+```
+
+
+# Original credits
 This work is based on bashell container
 https://hub.docker.com/r/bashell/spacewalk/

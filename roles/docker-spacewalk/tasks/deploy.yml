@@ -1,0 +1,21 @@
+---
+# For docker 1.7.1. Don't use it for docker-py version 1.19.1
+- name: Deploy {{ container_name }}
+  become: yes
+  shell: shell docker run --privileged=true -d --name="spacewalk" \
+  -p {{ binding_port80 }}:80 -p {{ binding_port443:443 }} -p {{ binding_port5222:5222 }} \
+  -p {{ binding_port {{ docker_image }} -v {{ dir_docker }}//var/satellite:/var/satellite \
+  -v {{ dir_docker }}/var/log:/var/log -v {{ dir_docker }}/var/lib/pgsql:/var/lib/pgsql \
+  -v {{ dir_docker }}/var/www/html/pub:/var/www/html/pub spacewalk
+  register: deploy_result
+
+- debug: msg="{{ deploy_result.stdout }}"
+- debug: msg="{{ deploy_result.stderr }}"
+
+- name: Debug output
+  shell: >
+    echo "
+    #########################
+    #   FAILED              #
+    #########################"
+  when: deploy_result|failed

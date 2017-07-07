@@ -10,11 +10,11 @@ MAINTAINER Jeremie CUADRADO <redbeard28>
 # 2. Set the environment variable
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
-WORKDIR /opt
-ENV SPACEWALKVERSION=2.6
-ENV VERSION=2.6-0
-ENV REALSERVER=6
-ENV BASEARCH=x86_64
+WORKDIR "{{ workdir_path }}'
+ENV SPACEWALKVERSION="{{ sp_version }}"
+ENV VERSION="{{ sp_repo_version }}"
+ENV REALSERVER="{{ centos_real_version }}"
+ENV BASEARCH="{{ centos_arch }}"
 
 # 3. Add the epel, spacewalk, jpackage repository, supervisord
 ADD conf/jpackage.repo /etc/yum.repos.d/jpackage.repo
@@ -23,16 +23,16 @@ RUN yum install -y epel-release \
  && yum check-update ; yum upgrade -y \
  && yum install -y spacewalk-setup-postgresql spacewalk-postgresql tomcat-native python-setuptools \
  && yum clean all \
- && easy_install pip && pip install supervisor && pip install --upgrade meld3==0.6.10 && mkdir /etc/supervisord.d \
+ && easy_install pip && pip install supervisor && pip install --upgrade meld3=="{{ meld3_version }}" && mkdir /etc/supervisord.d \
  && rm -rf /root/.cache
 
 
 # 4. Install supervisord config
-ADD conf/supervisord.conf /etc/supervisord.d/supervisord.conf
+ADD supervisord.conf /etc/supervisord.d/supervisord.conf
 
 # 5. Install spacewalk initial and running scripts
-ADD conf/answer.txt   /opt/answer.txt
-ADD conf/spacewalk.sh /opt/spacewalk.sh
+ADD answer.txt   /opt/answer.txt
+ADD spacewalk.sh /opt/spacewalk.sh
 
 # 6. Start supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.d/supervisord.conf"]
@@ -50,4 +50,4 @@ VOLUME /var/satellite
 VOLUME /var/www/html/pub
 
 # Port
-EXPOSE 80 443 522 68 69
+EXPOSE 80 443 5222 68 69
