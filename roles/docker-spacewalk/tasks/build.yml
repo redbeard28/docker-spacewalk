@@ -32,6 +32,7 @@
   docker_login:
     username: "{{ vault_registry_user }}"
     password: "{{ vault_registry_passwd }}"
+    email: "{{ vault_registry_email }}"
     reauthorize: yes
     
 # Last docker verison and docker-py version    
