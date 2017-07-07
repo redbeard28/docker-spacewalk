@@ -5,5 +5,7 @@ proxy_env:
   port: "{{ vault_proxy_port }}"
   no_proxy: "{{ vault_no_proxy }}"
 
+registry_user: "{{ vault_registry_user }}"
+
 
 
