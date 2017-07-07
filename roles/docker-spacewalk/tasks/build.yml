@@ -16,6 +16,9 @@
 - name: Copy spacewalk script to {{ dir_docker }}
   template: src=spacewalk.sh.j2 dest={{ dir_docker }}/spacewalk.sh
 
+- name: Copy repo jpackage script to {{ dir_docker }}
+  template: src=jpackage.repo.j2 dest={{ dir_docker }}/jpackage.repo
+  
 - name: Copy supervisord.conf to {{ dir_docker }}
   template: src=supervisord.conf.j2 dest={{ dir_docker }}/supervisord.conf
 
