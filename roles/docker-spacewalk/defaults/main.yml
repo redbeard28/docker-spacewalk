@@ -21,3 +21,5 @@ docker_image: '"{{ vault_registry_user }}"/{{ container_name }}'
 docker_image_version: "centos6"
 timezone: "Europe/Paris"
 internal_registry: 'false'
+
+spacewalk_admin_email: "{{ vault_spacewalk_email }}"
